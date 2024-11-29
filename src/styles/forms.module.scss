@@ -1,0 +1,38 @@
+
+
+.centeredPage {
+    display: flex;
+    justify-content: center;  // Horizontally center
+    align-items: center;      // Vertically center
+    min-height: 100vh;        // Full viewport height
+    margin: 0;
+    // background-color: #f0f0f0; // Optional background color
+    font-family: Arial, sans-serif; // Optional font
+    // background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  }
+  
+  .container {
+    text-align: center; // Optional: center text inside the container
+  }
+  
+  .button {
+    background-color: #333333; /* Dark charcoal */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .link{
+    color: #311e1e;
+
+  }
+
+  .link:hover {
+    color: #775b53; 
+    text-decoration: underline; /* Underline on hover */
+  }
+
+//   .ant-form-item-explain-error {
+//     color: rgb(51, 129, 122) !important;
+// }
