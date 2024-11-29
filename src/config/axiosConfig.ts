@@ -31,23 +31,24 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const refreshToken = localStorage.getItem("refreshToken");
-      if (refreshToken) {
+      // const refreshToken = localStorage.getItem("refreshToken");
+      // if (refreshToken) {
         try {
-          //   const response = await axios.post(`${BASE_URL}/auth/refreshToken`, {
-          //     refreshToken,
-          //   });
-          const response = await axios.get(`${BASE_URL}/auth/refresh`, {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
+          // const response = await axios.get(`${BASE_URL}/auth/refresh`, {
+          //   headers: {
+          //     Authorization: `Bearer ${refreshToken}`,
+          //   },
+          // });
+          // const response = await axios.get(`${BASE_URL}/auth/refresh`);
+          const response = await axios.post(`${BASE_URL}/auth/refresh`,{}, {
+            withCredentials: true,
           });
+
           // don't use axious instance that already configured for refresh token api call
           const newAccessToken = response.data.accessToken;
-          const newRefreshToken = response.data.refreshToken;
+          // const newRefreshToken = response.data.refreshToken;
           localStorage.setItem("accessToken", newAccessToken); //set new access token
-          localStorage.setItem("refreshToken", newRefreshToken); //added
-          //   originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          // localStorage.setItem("refreshToken", newRefreshToken); //added
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           return axios(originalRequest); //recall Api with new token
         } catch (error) {
@@ -56,7 +57,7 @@ api.interceptors.response.use(
           // Handle token refresh failure
           // mostly logout the user and re-authenticate by login again
         }
-      }
+      // }
     }
 
     return Promise.reject(error);

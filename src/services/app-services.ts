@@ -10,9 +10,10 @@ export const appService = {
     // localStorage.setItem("accessToken", data.accessToken);
     // localStorage.setItem("refreshToken", data.refreshToken);
 
-    const { data } = await api.get<void>("/auth/health");
-  
-console.log(" inside health service", data)
+    // const { data } = await api.get<void>("/auth/health");
+    const { data } = await api.get<void>("/dashboard/data");
+
+    console.log(" inside health service", data);
     return data;
   },
 };

@@ -2,19 +2,19 @@ import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import {
   Button,
-  Checkbox,
   Form,
   Input,
-  Flex,
   notification,
-  Alert,
   Card,
+  Typography,
 } from "antd";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { AppUtils } from "../../utils/app.utils";
 import { ALERT_TYPE } from "../../types/alert.type";
+
+const { Text } = Typography;
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const SignInPage: React.FC = () => {
   };
 
   return (
-    <div className="centeredPage">
+    <div className="centeredForm">
       {contextHolder}
 
       <Card
@@ -56,15 +56,28 @@ const SignInPage: React.FC = () => {
         }}
       >
         <div className="container">
+          <Text strong className="formTitle">
+            Sign In
+          </Text>
           <Form
             name="login"
             initialValues={{ remember: true }}
             style={{ maxWidth: 360 }}
             onFinish={onFinish}
           >
-            <Form.Item
+            {/* <Form.Item
               name="email"
               rules={[{ required: true, message: "Please input your email!" }]}
+            > */}
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: "Please input your email!" },
+                {
+                  type: "email",
+                  message: "Please enter a valid email address!",
+                },
+              ]}
             >
               <Input prefix={<UserOutlined />} placeholder="Email" />
             </Form.Item>
@@ -85,11 +98,13 @@ const SignInPage: React.FC = () => {
               <Button block type="primary" htmlType="submit" className="button">
                 Sign In
               </Button>
-              or{" "}
-              <Link to="/signup" className="link">
-                {" "}
-                Sign Up now!{" "}
-              </Link>
+              <div className="formFooter">
+                or{" "}
+                <Link to="/signup" className="link">
+                  {" "}
+                  Sign Up now!{" "}
+                </Link>
+              </div>
             </Form.Item>
           </Form>
         </div>
