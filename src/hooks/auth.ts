@@ -5,7 +5,9 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 type AuthState = {
   isAuthenticated: boolean;
+  username: string;
   setIsAuthenticated: (authStatus: boolean) => void;
+  setUsername: (name: string) => void;
 };
 
 export const useUserAuthStore = create<AuthState>()(
@@ -14,6 +16,8 @@ export const useUserAuthStore = create<AuthState>()(
       isAuthenticated: false,
       setIsAuthenticated: (authStatus: boolean) =>
         set({ isAuthenticated: authStatus }),
+      username: "",
+      setUsername: (name: string) => set({ username: name }),
     }),
     {
       name: "user-valid",

@@ -2,9 +2,12 @@ import { createContext, ReactNode } from "react";
 import { authService } from "../services/auth-service";
 import { useUserAuthStore } from "../hooks/auth";
 import { SignInData, SignUpData } from "../types/auth.type";
+import { extractNameFromToken } from "../utils/jwt.utils";
 
 type ContextType = {
   isAuthenticated: boolean;
+  username: string;
+  setUsername(name: string): void;
   setIsAuthenticated(authStatus: boolean): void;
   login(userData: SignInData): Promise<void>;
   logout(): Promise<void>;
@@ -14,7 +17,8 @@ type ContextType = {
 const AuthContext = createContext<ContextType | undefined>(undefined);
 
 function AuthProvider({ children }: { children: ReactNode }) {
-  const { isAuthenticated, setIsAuthenticated } = useUserAuthStore();
+  const { isAuthenticated, setIsAuthenticated, setUsername, username } =
+    useUserAuthStore();
 
   const {
     signIn: authLogin,
@@ -26,6 +30,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await authSignUp({ ...data });
       setIsAuthenticated(true);
+      let name = extractNameFromToken();
+      setUsername(name);
     } catch (e) {
       setIsAuthenticated(false);
       throw e;
@@ -36,6 +42,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await authLogin({ ...userData });
       setIsAuthenticated(true);
+
+      let name = extractNameFromToken();
+      setUsername(name);
     } catch (e) {
       setIsAuthenticated(false);
       throw e;
@@ -45,6 +54,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     await authLogout();
     setIsAuthenticated(false);
+    setUsername("");
   };
 
   return (
@@ -55,6 +65,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
         signUp,
         login,
         logout,
+        username,
+        setUsername,
       }}
     >
       {children}

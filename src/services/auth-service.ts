@@ -1,6 +1,6 @@
 import api from "../config/axiosConfig";
 import { SignInData, SignUpData, TokenData } from "../types/auth.type";
-import { ENDPOINTS, QUERY_KEYS } from "../utils/constants.utils";
+import { CONSTANTS, ENDPOINTS, MESSAGES } from "../utils/constants.utils";
 import { queryClient } from "../config/queryClientConfig";
 
 export const authService = {
@@ -13,10 +13,10 @@ export const authService = {
         },
         { withCredentials: true }
       );
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem(CONSTANTS.ACCESS_TOKEN_NAME, data.accessToken);
     } catch (error: any) {
       throw new Error(
-        error.response?.data?.message || "An error occurred during signup"
+        error.response?.data?.message || MESSAGES.SIGN_UP_ERROR_MESSAGE
       );
     }
   },
@@ -30,19 +30,25 @@ export const authService = {
         },
         { withCredentials: true }
       );
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem(CONSTANTS.ACCESS_TOKEN_NAME, data.accessToken);
     } catch (error: any) {
       throw new Error(
-        error.response?.data?.message || "An error occurred during signin"
+        error.response?.data?.message || MESSAGES.SIGN_IN_ERROR_MESSAGE
       );
     }
   },
 
   logout: async () => {
-    // queryClient.removeQueries({ queryKey: [QUERY_KEYS.DASHBOARD_DATA] });
-    queryClient.removeQueries();
-    localStorage.removeItem("accessToken");
-    await api.post(ENDPOINTS.LOGOUT, {}, { withCredentials: true });
-    return;
+    try{
+      queryClient.removeQueries();
+      localStorage.removeItem(CONSTANTS.ACCESS_TOKEN_NAME);
+      await api.post(ENDPOINTS.LOGOUT, {}, { withCredentials: true });
+      return;
+    }catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || MESSAGES.LOGOUT_ERROR_MESSAGE
+      );
+    }
+    
   },
 };

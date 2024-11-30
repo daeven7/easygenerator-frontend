@@ -12,11 +12,10 @@ const { Text } = Typography;
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const { isAuthenticated, login } = useAuthContext();
+  const { login } = useAuthContext();
 
   const [api, contextHolder] = notification.useNotification();
 
-  console.log("isAuthenticated signin", isAuthenticated);
   const onFinish = async (values: any) => {
     try {
       await login(values);

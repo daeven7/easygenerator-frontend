@@ -1,23 +1,34 @@
 import React from "react";
-import { Layout, Button } from "antd";
+import { Layout, Button, notification } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth";
 import styles from "./navbar.module.scss";
+import { AppUtils } from "../../utils/app.utils";
+import { ALERT_TYPE } from "../../types/alert.type";
 const { Header } = Layout;
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
-  const { logout } = useAuthContext();
-
+  const { logout, username } = useAuthContext();
+  const [api, contextHolder] = notification.useNotification();
   const onClick = async () => {
-    await logout();
-    navigate("/");
+    try {
+      await logout();
+      navigate("/");
+    } catch (e: any) {
+      AppUtils.openNotification(ALERT_TYPE.ERROR, api, {
+        message: "Error",
+        description: e.message,
+        placement: "topRight",
+      });
+    }
   };
 
   return (
     <Layout>
+       {contextHolder}
       <Header className={styles.header}>
         <div className={styles.content}>
           <div className={styles.appName}>My App</div>
@@ -30,7 +41,7 @@ const Navbar: React.FC = () => {
               Logout
             </Button>
             <Button icon={<UserOutlined />} className={styles.navBarButton}>
-              User
+              {username}
             </Button>
           </div>
         </div>

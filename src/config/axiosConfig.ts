@@ -44,7 +44,7 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return axios(originalRequest);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 

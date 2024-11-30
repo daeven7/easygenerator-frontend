@@ -3,10 +3,11 @@ export const CONSTANTS={
     SIGN_IN_PAGE: "/",
     APP_PAGE: "/app",
     LOGOUT_ROUTE: "/auth/logout",
+    ACCESS_TOKEN_NAME: "accessToken"
 }
 
 export const ENDPOINTS={
-    BASE_URL: "http://localhost:3000",
+    BASE_URL: import.meta.env.VITE_BASE_URL,
     LOGOUT: "/auth/logout",
     SIGN_IN: "/auth/signin",
     SIGN_UP: "/auth/signup",
@@ -17,4 +18,10 @@ export const ENDPOINTS={
 export const QUERY_KEYS={
     DASHBOARD_DATA: "DASHBOARD_DATA"
 
+}
+
+export const MESSAGES={
+    SIGN_UP_ERROR_MESSAGE: "An error occurred during Sign Up",
+    SIGN_IN_ERROR_MESSAGE: "An error occurred during Sign In",
+    LOGOUT_ERROR_MESSAGE: "An error occurred during Logout",
 }
