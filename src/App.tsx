@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import "./global.scss";
 import { CONSTANTS } from "./utils/constants.utils";

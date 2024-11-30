@@ -10,5 +10,5 @@ export type SignInData = {
 };
 
 export type TokenData = {
-    accessToken: string;
-  };
+  accessToken: string;
+};

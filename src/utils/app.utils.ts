@@ -1,4 +1,7 @@
-import { ArgsProps, NotificationInstance } from "antd/es/notification/interface";
+import {
+  ArgsProps,
+  NotificationInstance,
+} from "antd/es/notification/interface";
 import { ALERT_TYPE } from "../types/alert.type";
 
 export const AppUtils = {
