@@ -1,13 +1,6 @@
 import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Form,
-  Input,
-  notification,
-  Card,
-  Typography,
-} from "antd";
+import { Button, Form, Input, notification, Card, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -25,10 +18,6 @@ const SignInPage: React.FC = () => {
 
   console.log("isAuthenticated signin", isAuthenticated);
   const onFinish = async (values: any) => {
-    console.log("Received values of form: ", values);
-
-    console.log("Received values of form: ", values);
-
     try {
       await login(values);
       navigate("/app");
@@ -38,7 +27,6 @@ const SignInPage: React.FC = () => {
         description: e.message,
         placement: "topRight",
       });
-      console.log("errrrrrrrr in signin", e);
     }
   };
 
@@ -46,15 +34,7 @@ const SignInPage: React.FC = () => {
     <div className="centeredForm">
       {contextHolder}
 
-      <Card
-        style={{
-          width: 300,
-          height: 400,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <Card className="cardForm">
         <div className="container">
           <Text strong className="formTitle">
             Sign In
@@ -65,10 +45,6 @@ const SignInPage: React.FC = () => {
             style={{ maxWidth: 360 }}
             onFinish={onFinish}
           >
-            {/* <Form.Item
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            > */}
             <Form.Item
               name="email"
               rules={[
@@ -87,7 +63,7 @@ const SignInPage: React.FC = () => {
                 { required: true, message: "Please input your Password!" },
               ]}
             >
-              <Input
+              <Input.Password
                 prefix={<LockOutlined />}
                 type="password"
                 placeholder="Password"
@@ -114,19 +90,3 @@ const SignInPage: React.FC = () => {
 };
 
 export default SignInPage;
-
-// {/* <Form.Item>
-//         <Flex justify="space-between" align="center">
-//           <Form.Item name="remember" valuePropName="checked" noStyle>
-//             <Checkbox>Remember me</Checkbox>
-//           </Form.Item>
-//           <a href="">Forgot password</a>
-//         </Flex>
-//       </Form.Item> */}
-
-//           {/* <Form.Item>
-//         <Button block type="primary" htmlType="submit">
-//           Sign In
-//         </Button>
-//         or <a href="">Sign Up now!</a>
-//       </Form.Item> */}

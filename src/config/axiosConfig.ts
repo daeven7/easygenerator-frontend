@@ -1,18 +1,16 @@
 import axios from "axios";
-import { authService } from "../services/auth-service";
-
-const BASE_URL = "http://localhost:3000";
+import { ENDPOINTS } from "../utils/constants.utils";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000", //replace with your BaseURL
+  baseURL: ENDPOINTS.BASE_URL,
   headers: {
-    "Content-Type": "application/json", // change according header type accordingly
+    "Content-Type": "application/json",
   },
 });
 
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("accessToken"); // get stored access token
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`; // set in header
     }
@@ -31,33 +29,23 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      // const refreshToken = localStorage.getItem("refreshToken");
-      // if (refreshToken) {
-        try {
-          // const response = await axios.get(`${BASE_URL}/auth/refresh`, {
-          //   headers: {
-          //     Authorization: `Bearer ${refreshToken}`,
-          //   },
-          // });
-          // const response = await axios.get(`${BASE_URL}/auth/refresh`);
-          const response = await axios.post(`${BASE_URL}/auth/refresh`,{}, {
-            withCredentials: true,
-          });
 
-          // don't use axious instance that already configured for refresh token api call
-          const newAccessToken = response.data.accessToken;
-          // const newRefreshToken = response.data.refreshToken;
-          localStorage.setItem("accessToken", newAccessToken); //set new access token
-          // localStorage.setItem("refreshToken", newRefreshToken); //added
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-          return axios(originalRequest); //recall Api with new token
-        } catch (error) {
-          console.log("inside error of refresh rotation");
-          //   authService.logout()
-          // Handle token refresh failure
-          // mostly logout the user and re-authenticate by login again
-        }
-      // }
+      try {
+        const response = await axios.post(
+          `${ENDPOINTS.BASE_URL}${ENDPOINTS.REFRESH_TOKEN}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+
+        const newAccessToken = response.data.accessToken;
+        localStorage.setItem("accessToken", newAccessToken);
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        return axios(originalRequest);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     return Promise.reject(error);

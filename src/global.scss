@@ -1,26 +1,9 @@
+@use "./styles/forms.module.scss";
 
-@import './styles/forms.module.scss';
-
-.vsc-initialized{
-    margin: 0 !important;
+.vsc-initialized {
+  margin: 0 !important;
 }
 
-.app{
-    background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+.app {
+  background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
 }
-
-// .ant-card{
-
-//     .ant-card-body{
-//         .container{
-//             .ant-typography{
-//                 margin-bottom: 2rem !important;
-//                 padding-bottom: 2rem !important;
-//                 color: red;
-//                 // margin-bottom: "50px";
-//             }
-//         }
-        
-//     }
-// }
-

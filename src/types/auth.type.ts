@@ -11,5 +11,4 @@ export type SignInData = {
 
 export type TokenData = {
     accessToken: string;
-    // refreshToken: string;
   };

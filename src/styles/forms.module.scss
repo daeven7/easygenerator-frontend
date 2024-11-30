@@ -1,21 +1,17 @@
 .centeredForm {
   display: flex;
-  justify-content: center; // Horizontally center
-  align-items: center; // Vertically center
-  min-height: 100vh; // Full viewport height
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   margin: 0;
-  // background-color: #f0f0f0; // Optional background color
-  font-family: Arial, sans-serif; // Optional font
-  // background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+  font-family: Arial, sans-serif;
 }
 
 .container {
-  text-align: center; // Optional: center text inside the container
+  text-align: center;
 }
 
 .button {
-  // background-color: #333333; /* Dark charcoal */
-  // color: white; /* White text */
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -27,15 +23,14 @@
 
 .link:hover {
   color: #775b53;
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
 }
 
 .ant-form-item-explain-error {
-  // color: rgb(51, 129, 122) !important;
-  color: #ff4d4f; /* Use Ant Design's error color */
-  font-size: 0.9rem; /* Adjust size for better readability */
-  margin-top: 4px; /* Add spacing */
-  font-weight: 500; /* Make it slightly bold for visibility */
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  font-weight: 500;
   text-align: left;
 }
 
@@ -44,7 +39,15 @@
   margin-bottom: 1rem !important;
 }
 
-.formFooter{
+.formFooter {
   display: block !important;
   margin-top: 0.5rem !important;
+}
+
+.formCard {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

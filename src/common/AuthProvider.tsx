@@ -7,7 +7,7 @@ type ContextType = {
   isAuthenticated: boolean;
   setIsAuthenticated(authStatus: boolean): void;
   login(userData: SignInData): Promise<void>;
-  logout(): void;
+  logout(): Promise<void>;
   signUp(data: SignUpData): Promise<void>;
 };
 
@@ -42,8 +42,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const logout = () => {
-    authLogout();
+  const logout = async () => {
+    await authLogout();
     setIsAuthenticated(false);
   };
 

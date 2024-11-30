@@ -1,21 +1,20 @@
 import api from "../config/axiosConfig";
 import { SignInData, SignUpData, TokenData } from "../types/auth.type";
+import { ENDPOINTS, QUERY_KEYS } from "../utils/constants.utils";
+import { queryClient } from "../config/queryClientConfig";
 
 export const authService = {
   signUp: async (userInfo: SignUpData) => {
     try {
       const { data } = await api.post<TokenData>(
-        "/auth/signup",
+        ENDPOINTS.SIGN_UP,
         {
           ...userInfo,
         },
         { withCredentials: true }
       );
-      console.log("inside authservice signup", data);
       localStorage.setItem("accessToken", data.accessToken);
-      // localStorage.setItem("refreshToken", data.refreshToken);
     } catch (error: any) {
-      console.log("error in signup", error);
       throw new Error(
         error.response?.data?.message || "An error occurred during signup"
       );
@@ -25,17 +24,14 @@ export const authService = {
   signIn: async (userData: SignInData) => {
     try {
       const { data } = await api.post<TokenData>(
-        "/auth/signin",
+        ENDPOINTS.SIGN_IN,
         {
           ...userData,
         },
         { withCredentials: true }
       );
-      console.log("inside authservice signin", data);
       localStorage.setItem("accessToken", data.accessToken);
-      // localStorage.setItem("refreshToken", data.refreshToken);
     } catch (error: any) {
-      console.log("error in signin", error);
       throw new Error(
         error.response?.data?.message || "An error occurred during signin"
       );
@@ -43,10 +39,10 @@ export const authService = {
   },
 
   logout: async () => {
-    console.log("inside logout");
+    // queryClient.removeQueries({ queryKey: [QUERY_KEYS.DASHBOARD_DATA] });
+    queryClient.removeQueries();
     localStorage.removeItem("accessToken");
-    // localStorage.removeItem("refreshToken");
-    await api.post("/auth/logout", {}, { withCredentials: true });
+    await api.post(ENDPOINTS.LOGOUT, {}, { withCredentials: true });
     return;
   },
 };

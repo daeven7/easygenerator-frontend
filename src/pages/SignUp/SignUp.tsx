@@ -4,7 +4,6 @@ import { Button, Form, Input, notification, Card } from "antd";
 import { useAuthContext } from "../../hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { AppUtils } from "../../utils/app.utils";
-import styles from "./signUp.module.scss"; // Import the SCSS module
 import { ALERT_TYPE } from "../../types/alert.type";
 import { Typography } from "antd";
 
@@ -18,13 +17,10 @@ const SignUpPage: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
 
   const onFinish = async (values: any) => {
-    console.log("Received values of form: ", values);
-
     try {
       await signUp(values);
       navigate("/app");
     } catch (e: any) {
-      console.log("errrrrrrrr", e);
       AppUtils.openNotification(ALERT_TYPE.ERROR, api, {
         message: "Error",
         description: e.message,
@@ -35,15 +31,7 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="centeredForm">
-      <Card
-        style={{
-          width: 300,
-          height: 400,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <Card className="formCard">
         {contextHolder}
         <div className="container">
           <Text strong className="formTitle">
@@ -66,7 +54,6 @@ const SignUpPage: React.FC = () => {
 
             <Form.Item
               name="email"
-              // rules={[{ required: true, message: "Please input your email!" }]}
               rules={[
                 { required: true, message: "Please input your email!" },
                 {
@@ -116,7 +103,3 @@ const SignUpPage: React.FC = () => {
 };
 
 export default SignUpPage;
-
-// {
-//   /* <div className={`centeredPage ${styles.centeredPage} `}></div> */
-// }
