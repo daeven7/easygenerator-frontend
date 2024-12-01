@@ -15,9 +15,11 @@ createRoot(document.getElementById("root")!).render(
           <App />
         </BrowserRouter>
       </AuthProvider>
-      {import.meta.env.MODE === "development" && (
+      {
+      import.meta.env.MODE === "development" && (
         <ReactQueryDevtools initialIsOpen={false} />
-      )}
+      )
+      }
     </QueryClientProvider>
   </StrictMode>
 );
