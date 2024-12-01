@@ -95,4 +95,5 @@ npm run start
     * Independent development and deployment of frontend and backend components.
 
 
+##  Demo:  [link](https://github.com/daeven7/easygenerator-frontend/issues/1)
 
